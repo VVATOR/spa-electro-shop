@@ -1,0 +1,13 @@
+.menu-item{
+    background: rgb(169, 144, 175);
+}
+.menu-item a{
+    color: BLack;
+}
+
+.menu-item:hover{
+    background: rgb(164, 113, 177);
+}
+.menu-item:hover a{
+    color: white;
+}
