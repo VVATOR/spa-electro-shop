@@ -30,7 +30,7 @@ export default function products(state = initialState, action) {
 
     switch (action.type) {
         case PRODUCT_GET_ALL:
-            console.log(state);
+      //      console.log(state);
             return state;
         case PRODUCT_ADD:
             return [...state, action.product];

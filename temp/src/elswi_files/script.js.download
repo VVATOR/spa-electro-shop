@@ -1,0 +1,295 @@
+function sendGoogleEvent() {
+    var params = ['send', 'event'];
+
+    for (var i = 0; i < arguments.length; i++) {
+        params.push(arguments[i]);
+    }
+
+    console.log(params);
+
+    return ga.apply(window, params);
+}
+
+hints = [];
+
+function initTableColumnWidth() {
+    if (jQuery(document).width() <= 767) {
+        jQuery('.table-product').each(function () {
+            var $table = jQuery(this);
+            var rowWidth = $table.find('table tbody tr').eq(0).width();
+            $table.find('table tbody td.w50').width((rowWidth - 31) / 2);
+        });
+    }
+}
+
+$(window).resize(function () {
+    initTableColumnWidth();
+});
+
+$(function () {
+    hintsInit();
+    initTableColumnWidth();
+
+    if (window.opera) {
+        var opver = opera.version();
+        if (opver < 13) {
+            $('html').addClass('opera12');
+        }
+    }
+
+    var $body = jQuery('body');
+
+    if ($(".chosen-select").length > 0) {
+        $(".chosen-select").chosen({disable_search: true});
+    }
+
+
+    $('.menu-item a').click(function (e) {
+        if ($(this).attr('href') == '#') {
+            e.preventDefault();
+            $('.menu-aside li.active').removeClass('active');
+            $(this).closest('li', '.menu-aside').addClass('active').parent().closest('li', '.menu-aside').addClass('active');
+            return false;
+        }
+    });
+
+    $('.menu-item span').click(function () {
+        $('.menu-aside li.active').removeClass('active');
+        $(this).closest('li', '.menu-aside').addClass('active').parent().closest('li', '.menu-aside').addClass('active');
+        return false;
+    });
+
+    if ($("#dialog-order").length > 0) {
+        $("#dialog-order").dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            width: 555,
+            draggable: false
+        });
+    }
+
+
+    $body.on('click', '#hamburger, .closer', function (e) {
+        e.preventDefault();
+        if (jQuery('aside').hasClass('open')) {
+            setMenuState(0);
+        } else {
+            setMenuState(1);
+        }
+        return false;
+    });
+
+    if (jQuery(document).width() <= 767) {
+        $(document).on("swipeleft", function () {
+            setMenuState(0);
+        });
+
+        $(document).on("swiperight", function () {
+            setMenuState(1);
+        });
+    }
+
+    $body.on('click', '.table-product table tr td .more', function (e) {
+        jQuery(this).closest('tr.product-row').toggleClass('active');
+    });
+
+    $body.on('click', '.mobile-search-trigger', function (e) {
+        jQuery('.search-wrapper').toggleClass('open');
+        return false;
+    });
+
+    $body.on('click', '#search-close', function (e) {
+        e.preventDefault();
+        jQuery('.search-wrapper').removeClass('open');
+        return false;
+    });
+
+    $body.on("click", "a#send-order", function () {
+        $("#dialog-order").dialog("open");
+        return false;
+    });
+
+    $body.on("change", '#ContactForm_shipping', function () {
+        console.log($(this).is(":checked"));
+        if ($(this).is(":checked")) {
+            jQuery('#ContactForm_address').prop("disabled", false);
+        } else {
+            jQuery('#ContactForm_address').prop("disabled", true);
+        }
+    });
+
+    $(".mailform-message-close-btn").click(function () {
+        $("#mailform-message").dialog('close');
+    });
+
+    $(".news-message-close-btn").click(function () {
+        $("#news-message").dialog('close');
+    });
+
+    $body.on("click", "a.basket", function () {
+        addToCart($(this).data('id'), $('#pv-' + $(this).data('id')).val());
+        //addToCart($(this).data('id'), parseInt($('#pv-' + $(this).data('id')).val()))
+        return false;
+    });
+
+    $body.on("change", ".ucpv", function () {
+        //updateCart($(this).data('id'), parseInt($(this).val()))
+        updateCart($(this).data('id'), $(this).val())
+    });
+
+    $body.on("click", ".dpfc", function () {
+        updateCart($(this).data('id'), 0);
+        return false;
+    });
+
+    $body.on("click", ".ccfp", function () {
+        clearCart();
+        return false;
+    });
+
+    $body.on("keypress", ".acpv", function (e) {
+        if (e.which == 13) {
+            //addToCart($(this).data('id'), parseInt($(this).val()))
+            addToCart($(this).data('id'), $(this).val())
+            return false;
+        }
+    });
+
+    $('.menu-aside a').click(function () {
+        var sender = $(this);
+        var url = sender.attr('href');
+        if (url.length > 2) {
+            if (url != window.location) {
+                $.ajax({
+                    dataType: 'json',
+                    url: url + '?ajax=1',
+                    success: function (data) {
+                        $('#content-table').html(data.table);
+                        $('h1').text(data.h1);
+                        $('#breadcrumb').html(data.breadcrumb);
+                        window.history.pushState(null, null, url);
+                        sender.closest('ul').find('li.active').removeClass('active');
+                        sender.closest('li').addClass('active');
+                        setMenuState(0);
+                        hintsInit();
+                        initTableColumnWidth();
+                    }
+                });
+            }
+        }
+        return false;
+    });
+
+
+    if (jQuery('aside').length) {
+        jQuery('#hamburger').show();
+    }
+
+    jQuery('.units').each(function () {
+        jQuery(this).css({
+            'margin-left': -(jQuery(this).width() + 11)
+        });
+    });
+
+});
+
+function setMenuState(state) {
+    if (state == 1) {
+        jQuery('aside').addClass('open');
+    } else if (state == 0) {
+        jQuery('aside').removeClass('open');
+    }
+}
+
+function addToCart(id, value) {
+    //if (isN(value) && value > 0) {
+    value = value.replace(/,/g, '.');
+    if (value > 0) {
+        sendQuery($.param({
+            'id': id,
+            'count': value
+        }), '/cart/add')
+    }
+}
+
+function clearCart() {
+    sendQuery($.param({}), '/cart/clear')
+    updateMenu();
+}
+
+function updateCart(id, value) {
+
+    //if (isN(value) && value >= 0) {
+    if (value != 0) {
+        value = value.replace(/,/g, '.');
+    }
+    if (value >= 0) {
+        sendQuery($.param({
+            'id': id,
+            'count': value
+        }), '/cart/update')
+    }
+}
+
+function sendQuery(data, url) {
+    $.ajax({
+        url: url,
+        dataType: "json",
+        type: "post",
+        data: data,
+        context: this,
+        success: function (data, status) {
+            if (data.status == 1) {
+                updateCartWidget();
+                updateMenu();
+            }
+            //$(".acpv").val(0);
+            if (data.ftf != undefined && data.ftf) {
+                $('html, body').animate({
+                    scrollTop: $(".cart-data").offset().top
+                }, 1000);
+            }
+        }
+    });
+}
+
+
+function updateMenu() {
+    jQuery('#menu').load(document.location.href + " #menu > *");
+}
+
+function updateCartWidget() {
+    $("div.cart-data").load(document.location.href + " div.order-table", function () {
+        jQuery('#city').select2({'placeholder': 'Выберите город', 'allowClear': true, 'width': '40%'});
+        jQuery('#city').on('change', function (data) {
+            $.ajax({
+                dataType: "json",
+                url: "/cart/delivery?id=" + data.val,
+                success: function (d) {
+                    $(".delivery-price-wrapper").html(d.message);
+                    initTableColumnWidth();
+                    $(".delivery-days").load(document.location.href + " .delivery-days > * ", function () {
+                    });
+                }
+            });
+        });
+        jQuery('#city').trigger('change');
+    });
+}
+
+function isN(obj) {
+    return !jQuery.isArray(obj) && (obj - parseFloat(obj) + 1) >= 0;
+}
+
+function hintsInit() {
+    $('.text-hint').each(function () {
+        hints[$(this).attr('id')] = $(this).val();
+        $(this).focus(function () {
+            $(this).val($(this).val() == hints[$(this).attr('id')] ? '' : $(this).val());
+        })
+        $(this).blur(function () {
+            $(this).val($(this).val() == '' ? hints[$(this).attr('id')] : $(this).val());
+        })
+    })
+}

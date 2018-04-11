@@ -1,0 +1,28 @@
+$(function(){
+    var owl = $('.owl-carousel');
+
+    var isNav = ($('.owl-carousel .item').length > 5);
+
+    if (!isNav){
+        $('.owl-container').css('height', '304px');
+    }
+
+    owl.owlCarousel({
+        /*animateOut: 'slideOutDown',
+        animateIn: 'flipInX',*/
+        items:5,
+        itemsCustom : false,
+        nav:false,
+        margin:10,
+        dots: isNav,
+        loop: isNav,
+        dotsSpeed: 250,
+        dotsContainer: '.dots',
+        smartSpeed: 1500,
+        autoplay: isNav,
+        autoplayTimeout: 5000,
+        autoHeight:true,
+        autoplayHoverPause: true,
+    });
+
+});

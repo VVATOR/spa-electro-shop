@@ -1,4 +1,4 @@
-import { CART_GET_ALL_POSITION, CART_ADD } from '../constants/constant';
+import { ORDER_GET_ALL_POSITION, ORDER_ADD } from '../constants/constant';
 
 const initialState = [];
 
@@ -7,16 +7,12 @@ const log = console.log.bind(this);
 export default function carts(
     state = initialState, action
 ) {
-    log("reducer");
-    switch (action) {
-
-        case CART_GET_ALL_POSITION:
+    console.log("reducer");
+    switch (action.type) {
+        case ORDER_GET_ALL_POSITION:
             return [...state];
-        case CART_ADD:
-            return [
-                ...state,
-                action.product
-            ];
+        case ORDER_ADD:
+            return [...state,action.product];
         default:
             return state;
             break;

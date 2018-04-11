@@ -1,8 +1,10 @@
+import {ORDER_ADD} from '../constants/constant';
+
 const log = console.log.bind(this);
 
 const cartActionDispatcher = dispatch => ({
 
-    onCartAddProduct: (productToAdd) => {
+    onCartAddProduct: (product) => {
         //log(JSON.stringify("---->", productToAdd));
     /*
         log(JSON.stringify("---->", productToAdd));
@@ -40,7 +42,7 @@ const cartActionDispatcher = dispatch => ({
                 dispatch({type: 'PRODUCT_ADD', product});
             });
         */
-        dispatch({type: 'CART_ADD_PRODUCT', product:productToAdd});
+        dispatch({type: ORDER_ADD, product});
     },  
     
 })

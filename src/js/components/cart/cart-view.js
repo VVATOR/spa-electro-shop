@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 
-
+import {connect} from 'react-redux';
 import CartItem from './cart-item/cart-item';
 
-export default class CartView extends Component {
-  constructor(props) {
-    super(props);
-    //this.setState({});
-
-  }
-
+class CartView extends Component {
   generateTest() {
     let list = [
       <CartItem key="1" />,
@@ -22,31 +16,30 @@ export default class CartView extends Component {
     return list;
   }
 
-  state = {
-    productInCart: [],
-    count: 0
-  };
+
   render() {
     let row = [];
-    this.state.productInCart.forEach(product => {
-      // console.log(product);
-      row.push(product);
-    })
+    const { carts } = this.props;
 
-
+    carts.forEach(cart => {
+      row.push(<CartItem cart={cart}/>);
+    });
 
     return (
       <div className="CartView">
         CART VIEW
         {row}
 
-        {/*this.generateTest()*/}
-
-
-        {/*this.state.count*/}
-
       </div>
     );
   }
 }
+
+
+export default connect(
+  (state) => {
+    return {
+      carts: state.carts
+    }
+  })(CartView)
 

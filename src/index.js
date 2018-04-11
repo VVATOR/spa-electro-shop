@@ -12,12 +12,28 @@ const store = createStore(combineReducers, window.__REDUX_DEVTOOLS_EXTENSION__ &
 
 
 
+/*
+ReactDOM.render(
+   <Provider store={store}>
+       <App />
+   </Provider>
+
+   , document.getElementById('root'));
+  // , document.getElementsByTagName('title')[0]);
+
+   ReactDOM.render(
+       <p>lol</p>
+       //, document.getElementById('root'));
+       , document.getElementsByTagName('title')[0]);
+       registerServiceWorker();
+   
+
+*/
+
 
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>
-
+ 
     , document.getElementById('root'));
-registerServiceWorker();
-
