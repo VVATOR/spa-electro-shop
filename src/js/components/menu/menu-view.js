@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import MenuItem from './menu-item/menu-item';
 import './menu-view.css';
 

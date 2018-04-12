@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CartItem from './cart-item/cart-item';
 
 class CartView extends Component {
-  generateTest() {
-    let list = [
-      <CartItem key="1" />,
-      /*CartItem key="2" />,
-      <CartItem key="3" />,
-      <CartItem key="4" />,*/
-    ];
-
-
-    return list;
-  }
-
-
   render() {
     let row = [];
     const { carts } = this.props;
-
     carts.forEach(cart => {
-      row.push(<CartItem cart={cart}/>);
+      row.push(<CartItem cart={cart} />);
     });
 
     return (
@@ -34,7 +20,6 @@ class CartView extends Component {
     );
   }
 }
-
 
 export default connect(
   (state) => {

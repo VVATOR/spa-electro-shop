@@ -11,11 +11,11 @@ class PaginatorCounterELSWI extends React.Component {
     const items = [];
     listPageSizes.forEach(pageSize => {
       items.push(
-                <li>
-                  <a onClick={() => this.onClickPaginatorCounter(pageSize)}>
-                    {pageSize} 
-                  </a>
-                </li>
+        <li key={pageSize}>
+          <a onClick={() => this.onClickPaginatorCounter(pageSize)}>
+            {pageSize}
+          </a>
+        </li>
       );
     });
     return (

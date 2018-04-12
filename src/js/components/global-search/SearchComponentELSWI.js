@@ -1,17 +1,18 @@
 import React from "react";
 
 class SearchComponentELSWI extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-   // this.props.inputName ="";
+    this.inputSearch = React.createRef();
   }
+  
   onClickGlobalSearch() {
     console.log("onClickGlobalSearch ");
-    console.log(this.inputName.input.value);
+    console.log(this.inputSearch.value);
   }
 
   componentDidMount() {
- //   this._input.onClickGlobalSearch();
+    //   this._input.onClickGlobalSearch();
   }
   render() {
     return (
@@ -24,15 +25,14 @@ class SearchComponentELSWI extends React.Component {
               type="text"
               placeholder="Строка поиска"
               name="query"
-              ref={(c) => this._input = c}
-             // inputRef = {(input) => this.inputName = input }
+              ref={(input) => this.inputSearch = input}
+            // inputRef = {(input) => this.inputName = input }
             />
             <input
               id="searchbtn"
               type="button"
               defaultValue="Искать"
               onClick={() => this.onClickGlobalSearch()}
-              
             />
             <div id="search-close">
               <span />

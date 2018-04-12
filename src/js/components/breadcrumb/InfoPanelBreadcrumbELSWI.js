@@ -11,15 +11,18 @@ class InfoPanelBreadcrumbELSWI extends React.Component {
     const listPath = ["Главная", "Каталог продукции", "КАБЕЛЬ - ПРОВОД", "ПВС, ШВВП", "ПВС"];
     const items = [];
     listPath.forEach((itemName) => {
-      items.push(
-        <a href="#" onClick={() => this.onClickBreadcrumbItem(itemName)}>
-          {itemName}
-        </a>
-      );
-      items.push(<span className="sep"> » </span>)
+      if (itemName !== listPath[listPath.length - 1])
+        items.push(
+          <span key={itemName} >
+            <a href="#" onClick={() => this.onClickBreadcrumbItem(itemName)}>
+              {itemName}
+            </a>
+            <span className="sep"> » </span>
+          </span>
+        );
       //(itemName !== items[listPath.length - 1]) ? items.push(<span className="sep"> » </span>) : "";
     });
-    items.push(<span>ПВС</span>);
+    items.push(<span key="active">{listPath[listPath.length - 1]}</span>);
 
     return (
       <div className="breadcrumb" id="breadcrumb">

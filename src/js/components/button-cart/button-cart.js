@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class ButtonCart extends Component {
-    generateTest(){
-        return 52;
-    }
-    
+class ButtonCart extends Component {
+  generateTest() {
+    return 52;
+  }
+
   render() {
+    const { carts } = this.props;
     return (
       <div>
-          
-        
-
+        {carts.length}
       </div>
     )
   }
 }
+
+export default connect(
+  (state) => {
+    return {
+      carts: state.carts
+    }
+  })(ButtonCart);

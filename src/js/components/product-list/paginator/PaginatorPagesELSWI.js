@@ -12,7 +12,7 @@ class PaginatorPagesELSWI extends React.Component {
     const items = [];
     listPageSizes.forEach(numberPage => {
       items.push(
-        <li className="page">
+        <li key={numberPage} className="page">
           <a onClick={() => this.onClickPaginatorActivatePage(numberPage)}>
             {numberPage}
           </a>

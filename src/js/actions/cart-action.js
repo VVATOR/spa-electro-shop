@@ -1,6 +1,6 @@
 import {ORDER_ADD} from '../constants/constant';
 
-const log = console.log.bind(this);
+//const log = console.log.bind(this);
 
 const cartActionDispatcher = dispatch => ({
 

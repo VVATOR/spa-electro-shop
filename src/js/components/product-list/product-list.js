@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './product-list.css';
 import ProductListItem from './product-list-item/product-list-item';
-import products from '../../reducers/products';
-import productActionDispatcher from '../../actions/product-action';
+//import productActionDispatcher from '../../actions/product-action';
 import PaginatorCounterELSWI from './paginator/PaginatorCounterELSWI';
 import PaginatorPagesELSWI from './paginator/PaginatorPagesELSWI';
 
@@ -21,13 +20,15 @@ class ProductList extends Component {
     });
     return (
       <div className="product-list">
-        <table class="table">
-          {items}
+        <table className="table">
+          <tbody>
+            {items}
+          </tbody>
         </table>
-        <br/>
-        <PaginatorPagesELSWI/>
-        <PaginatorCounterELSWI/>
-        
+        <br />
+        <PaginatorPagesELSWI />
+        <PaginatorCounterELSWI />
+
       </div>
     );
   }
