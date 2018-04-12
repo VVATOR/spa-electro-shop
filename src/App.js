@@ -44,6 +44,7 @@ class App extends Component {
 
     let { products } = this.props;
     return (
+      
       <div className="App container">
         <div className="row">
 
