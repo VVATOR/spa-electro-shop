@@ -13,8 +13,7 @@ class ProductListItem extends React.Component {
 
   render() {
     const { product } = this.props;
-    console.log("1111111111111111111111111111111111111111111111");
-    console.log(product);
+      console.log(product);
 
     return (
       <tr className="product-list-item">

@@ -40,7 +40,10 @@ class AddToCartButtom extends Component {
         >+</button> */}
 
 
-        <p className="App-intro" onClick={this.state.onCartAddProduct.bind(this, { id: "aaa" })}>
+       {/*  <p className="App-intro" onClick={this.state.onCartAddProduct.bind(this, { id: "aaa" })}> */}
+        
+        <p className="App-intro" onClick={this.state.onCartAddProduct.bind(this, this.product)}>
+        
           add.
         </p>
       </div>
