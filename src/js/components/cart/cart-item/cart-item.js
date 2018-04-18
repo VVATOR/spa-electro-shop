@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './cart-item.css';
 import cartActionDispatcher from '../../../actions/cart-action';
-
+import { Button, Glyphicon } from 'react-bootstrap'
 
 class CartItem extends React.Component {
 
@@ -24,11 +24,19 @@ class CartItem extends React.Component {
         <div className="btn btn-default" onClick={this
           .props
           .onCartDelete
-          .bind(this,cart.id)
+          .bind(this, cart.id)
         }>
           ss
         </div>
 
+
+        <Button bsSize="small" bsStyle="danger" onClick={this
+          .props
+          .onCartDelete
+          .bind(this, cart.id)
+        }>
+          <Glyphicon glyph="remove" />
+        </Button>
         cart-item
           <input type="text" />
       </div>
