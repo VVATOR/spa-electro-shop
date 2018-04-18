@@ -33,7 +33,7 @@ class CartItem extends React.Component {
         <Button bsSize="small" bsStyle="danger" onClick={this
           .props
           .onCartDelete
-          .bind(this, cart.id)
+          .bind(this, cart)
         }>
           <Glyphicon glyph="remove" />
         </Button>
