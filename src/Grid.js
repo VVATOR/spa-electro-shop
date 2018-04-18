@@ -46,9 +46,9 @@ class GridView extends Component {
         <Grid>
           <Row className="show-grid">
             <Col sm={6} md={6}>
-              <ButtonCart />             
+              <ButtonCart />
             </Col>
-            <Col sm={6} md={6}>             
+            <Col sm={6} md={6}>
               <SearchComponentELSWI />
             </Col>
           </Row>
@@ -132,7 +132,7 @@ export default connect(
   (state) => {
     return {
       products: state.products
-      // page: state.page
+      // page: state.page1
     }
   },
   productActionDispatcher

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import CartItem from './cart-item/cart-item';
+import cartActionDispatcher from '../../actions/cart-action';
 
 class CartView extends Component {
   render() {
@@ -13,6 +14,12 @@ class CartView extends Component {
 
     return (
       <div className="CartView">
+        <button
+          onClick={this
+            .props
+            .onCartClear
+            .bind(this)}
+          className="button btn-green">clear</button>
         CART VIEW
         {row}
 
@@ -26,5 +33,7 @@ export default connect(
     return {
       carts: state.carts
     }
-  })(CartView)
+
+  }, cartActionDispatcher)
+  (CartView)
 
