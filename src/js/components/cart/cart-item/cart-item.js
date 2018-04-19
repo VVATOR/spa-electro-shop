@@ -29,6 +29,7 @@ class CartItem extends React.Component {
           ss
         </div>
 
+       
 
         <Button bsSize="small" bsStyle="danger" onClick={this
           .props

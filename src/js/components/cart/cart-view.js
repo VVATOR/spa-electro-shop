@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Button, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import CartItem from './cart-item/cart-item';
 import cartActionDispatcher from '../../actions/cart-action';
@@ -14,12 +14,9 @@ class CartView extends Component {
 
     return (
       <div className="CartView">
-        <button
-          onClick={this
-            .props
-            .onCartClear
-            .bind(this)}
-          className="button btn-green">clear</button>
+        <Button bsSize="small" bsStyle="default" onClick={this.props.onCartClear.bind(this)}>
+          <Glyphicon glyph="trash" /> clear ALL
+        </Button>
         CART VIEW
         {row}
 

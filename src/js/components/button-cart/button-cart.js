@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Button, Glyphicon } from 'react-bootstrap';
 
 class ButtonCart extends Component {
   generateTest() {
@@ -11,6 +12,9 @@ class ButtonCart extends Component {
     return (
       <div>
         {carts.length}
+        <Button bsSize="small" bsStyle="danger">
+          <Glyphicon glyph="trash" />
+        </Button>
       </div>
     )
   }
